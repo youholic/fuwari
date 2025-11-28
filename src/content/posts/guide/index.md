@@ -6,6 +6,7 @@ image: "./123350003_p0.jpg"
 tags: ["Guides"]
 category: Guides
 draft: false
+pinned: true
 ---
 
 > 封面来源: [Source](https://www.pixiv.net/artworks/123350003)
