@@ -20,9 +20,9 @@ export const siteConfig: SiteConfig = {
 		src: "assets/images/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "top", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
-			enable: true, // Display the credit text of the banner image
+			enable: false, // Display the credit text of the banner image
 			text: "contact me", // Credit text to be displayed
-			url: "", // (Optional) URL link to the original artwork or artist's page
+			url: "", // (Optional) URL link to the original artwork or artist's page. Paths starting with '/' are relative to the /public directory
 		},
 	},
 	toc: {
@@ -58,20 +58,20 @@ export const profileConfig: ProfileConfig = {
 	bio: "徒梦三春，空待百年",
 	links: [
 		{
-			name: "Twitter",
-			icon: "fa6-brands:twitter", // Visit https://icones.js.org/ for icon codes
+			name: "QQ",
+			icon: "mdi:qqchat", // Visit https://icones.js.org/ for icon codes
 			// You will need to install the corresponding icon set if it's not already included
 			// `pnpm add @iconify-json/<icon-set-name>`
-			url: "https://x.com/youholic3",
+			url: "/favicon/QQ.jpg",
 		},
 		{
-			name: "Steam",
-			icon: "fa6-brands:steam",
-			url: "https://steamcommunity.com/profiles/76561198921276641/",
+			name: "Wechat",
+			icon: "mdi:wechat",
+			url: "/favicon/Wechat.jpg",
 		},
 		{
 			name: "GitHub",
-			icon: "fa6-brands:github",
+			icon: "mdi:github",
 			url: "https://github.com/youholic",
 		},
 	],
