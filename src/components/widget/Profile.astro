@@ -3,8 +3,30 @@ import { Icon } from "astro-icon/components";
 import { profileConfig } from "../../config";
 import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
+import QRCodeModal from "../misc/QRCodeModal.astro";
 
 const config = profileConfig;
+
+// 判断是否为本地图片链接
+function isLocalImage(url: string): boolean {
+	if (!url) return false;
+	// 检查是否为外部链接
+	if (url.startsWith("http://") || url.startsWith("https://")) {
+		return false;
+	}
+	// 检查是否为图片扩展名
+	const imageExtensions = [
+		".jpg",
+		".jpeg",
+		".png",
+		".gif",
+		".webp",
+		".svg",
+		".bmp",
+	];
+	const lowerUrl = url.toLowerCase();
+	return imageExtensions.some((ext) => lowerUrl.endsWith(ext));
+}
 ---
 <div class="card-base p-3">
     <a aria-label="Go to About Page" href={url('/about/')}
@@ -23,17 +45,71 @@ const config = profileConfig;
         <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
         <div class="text-center text-neutral-400 mb-2.5 transition">{config.bio}</div>
         <div class="flex flex-wrap gap-2 justify-center mb-1">
-            {config.links.length > 1 && config.links.map(item =>
-                    <a rel="me" aria-label={item.name} href={item.url} target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90">
-                        <Icon name={item.icon} class="text-[1.5rem]"></Icon>
-                    </a>
-            )}
-            {config.links.length == 1 && <a rel="me" aria-label={config.links[0].name} href={config.links[0].url} target="_blank"
-                                            class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
-                <Icon name={config.links[0].icon} class="text-[1.5rem]"></Icon>
-                {config.links[0].name}
-            </a>}
+            {config.links.length > 1 && config.links.map((item, index) => {
+                const isImage = isLocalImage(item.url);
+                const modalId = `qrcode-modal-${index}`;
+                return (
+                    <>
+                        <a 
+                            rel="me" 
+                            aria-label={item.name} 
+                            href={isImage ? "#" : item.url} 
+                            target={isImage ? undefined : "_blank"}
+                            class="btn-regular rounded-lg h-10 w-10 active:scale-90 qrcode-link"
+                            data-modal-id={isImage ? modalId : undefined}
+                            data-image-url={isImage ? url(item.url) : undefined}
+                            data-image-title={isImage ? item.name : undefined}
+                        >
+                            <Icon name={item.icon} class="text-[1.5rem]"></Icon>
+                        </a>
+                        {isImage && <QRCodeModal id={modalId} imageUrl={url(item.url)} title={item.name} />}
+                    </>
+                );
+            })}
+            {config.links.length == 1 && (() => {
+                const item = config.links[0];
+                const isImage = isLocalImage(item.url);
+                const modalId = "qrcode-modal-single";
+                return (
+                    <>
+                        <a 
+                            rel="me" 
+                            aria-label={item.name} 
+                            href={isImage ? "#" : item.url} 
+                            target={isImage ? undefined : "_blank"}
+                            class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95 qrcode-link"
+                            data-modal-id={isImage ? modalId : undefined}
+                            data-image-url={isImage ? url(item.url) : undefined}
+                            data-image-title={isImage ? item.name : undefined}
+                        >
+                            <Icon name={item.icon} class="text-[1.5rem]"></Icon>
+                            {item.name}
+                        </a>
+                        {isImage && <QRCodeModal id={modalId} imageUrl={url(item.url)} title={item.name} />}
+                    </>
+                );
+            })()}
         </div>
     </div>
 </div>
+
+<script>
+	// 处理二维码链接点击事件
+	document.addEventListener('DOMContentLoaded', () => {
+		const qrcodeLinks = document.querySelectorAll('.qrcode-link[data-modal-id]');
+		
+		qrcodeLinks.forEach(link => {
+			link.addEventListener('click', (e) => {
+				const modalId = link.getAttribute('data-modal-id');
+				if (modalId) {
+					e.preventDefault();
+					const modal = document.querySelector(`#${modalId}`);
+					if (modal) {
+						modal.classList.remove('hidden');
+					}
+				}
+			});
+		});
+	});
+</script>
 

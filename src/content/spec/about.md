@@ -7,5 +7,5 @@ This is a personal blog.
 > - [Pixiv](https://www.pixiv.net/users/66653478/bookmarks/artworks)
 
 > ### 联系我
-><img src="/public/favicon/QQ.jpg" alt="描述文字" width="500" height="500">
+><img src="/favicon/QQ.jpg" alt="描述文字" width="500" height="500">
 

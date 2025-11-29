@@ -1,0 +1,133 @@
+---
+interface Props {
+	id?: string;
+	imageUrl: string;
+	title?: string;
+}
+
+const { id = "qrcode-modal", imageUrl, title } = Astro.props;
+---
+
+<div id={id} class="qrcode-modal hidden">
+	<div class="qrcode-modal-content relative bg-[var(--card-bg)] rounded-xl p-6 max-w-[90vw] max-h-[90vh] overflow-auto shadow-2xl">
+		<button
+			class="qrcode-modal-close absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-[var(--btn-plain-bg)] hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)] transition text-black/75 dark:text-white/75 hover:text-[var(--primary)] z-10"
+			aria-label="关闭弹窗"
+		>
+			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+			</svg>
+		</button>
+		{title && <h3 class="text-xl font-bold mb-4 text-center text-black/75 dark:text-white/75">{title}</h3>}
+		<div class="flex justify-center">
+			<img src={imageUrl} alt={title || "二维码"} class="max-w-full max-h-[70vh] object-contain rounded-lg" />
+		</div>
+	</div>
+</div>
+
+<style is:global>
+	.qrcode-modal {
+		position: fixed !important;
+		top: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		width: 100vw !important;
+		height: 100vh !important;
+		z-index: 999999 !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		background-color: rgba(0, 0, 0, 0.6) !important;
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		animation: fadeIn 0.2s ease-in-out;
+		margin: 0 !important;
+		padding: 0 !important;
+		pointer-events: auto !important;
+	}
+
+	.qrcode-modal-content {
+		animation: scaleIn 0.2s ease-in-out;
+		position: relative;
+		z-index: 1;
+	}
+
+	.qrcode-modal.hidden {
+		display: none !important;
+	}
+
+	.qrcode-modal:not(.hidden) {
+		display: flex !important;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes scaleIn {
+		from {
+			transform: scale(0.9);
+			opacity: 0;
+		}
+		to {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+</style>
+
+<script is:inline define:vars={{ modalId: id }}>
+	(function() {
+		function initModal() {
+			const modal = document.querySelector(`#${modalId}`);
+			if (!modal) {
+				// 如果模态框还未加载，稍后重试
+				setTimeout(initModal, 100);
+				return;
+			}
+
+			// 将弹窗移动到 body 层级，避免被父容器限制
+			if (modal.parentElement !== document.body) {
+				document.body.appendChild(modal);
+			}
+			
+			const closeBtn = modal.querySelector('.qrcode-modal-close');
+			
+			if (closeBtn) {
+				// 关闭按钮点击事件
+				closeBtn.addEventListener('click', (e) => {
+					e.stopPropagation();
+					modal.classList.add('hidden');
+				});
+			}
+
+			// 点击背景关闭
+			modal.addEventListener('click', (e) => {
+				if (e.target === modal) {
+					modal.classList.add('hidden');
+				}
+			});
+
+			// ESC 键关闭
+			const handleEscape = (e) => {
+				if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+					modal.classList.add('hidden');
+				}
+			};
+			document.addEventListener('keydown', handleEscape);
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initModal);
+		} else {
+			initModal();
+		}
+	})();
+</script>
+
