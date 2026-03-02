@@ -2,6 +2,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
+import { MERGE_SERIES_ON_HOME } from "@constants/constants";
 
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
@@ -30,6 +31,60 @@ export async function getSortedPosts() {
 	}
 
 	return sorted;
+}
+
+export type SeriesCard = {
+	slug: string;
+	data: CollectionEntry<"posts">["data"] & { isSeriesCard: true; seriesName: string; seriesCount: number };
+};
+
+export type PostOrSeriesCard = CollectionEntry<"posts"> | SeriesCard;
+
+export async function getSortedPostsForHome(): Promise<PostOrSeriesCard[]> {
+	if (!MERGE_SERIES_ON_HOME) {
+		return await getSortedPosts();
+	}
+
+	const allPosts = await getSortedPosts();
+
+	const seriesMap = new Map<string, CollectionEntry<"posts">[]>();
+
+	allPosts.forEach((post) => {
+		if (post.data.series) {
+			const seriesName = post.data.series.trim();
+			if (!seriesMap.has(seriesName)) {
+				seriesMap.set(seriesName, []);
+			}
+			seriesMap.get(seriesName)?.push(post);
+		}
+	});
+
+	const seriesNames = Array.from(seriesMap.keys());
+	const seriesPosts: SeriesCard[] = seriesNames.map((seriesName) => {
+		const postsInSeries = seriesMap.get(seriesName) || [];
+		const latestPost = postsInSeries[0];
+		return {
+			slug: `/series/${encodeURIComponent(seriesName)}/`,
+			data: {
+				...latestPost.data,
+				isSeriesCard: true,
+				seriesName,
+				seriesCount: postsInSeries.length,
+			},
+		};
+	});
+
+	const postsWithoutSeries = allPosts.filter((post) => !post.data.series);
+
+	const combined = [...seriesPosts, ...postsWithoutSeries];
+
+	combined.sort((a, b) => {
+		const dateA = new Date(a.data.published);
+		const dateB = new Date(b.data.published);
+		return dateA > dateB ? -1 : 1;
+	});
+
+	return combined;
 }
 export type PostForList = {
 	slug: string;
@@ -111,4 +166,48 @@ export async function getCategoryList(): Promise<Category[]> {
 		});
 	}
 	return ret;
+}
+
+export type Series = {
+	name: string;
+	count: number;
+};
+
+export async function getSeriesList(): Promise<Series[]> {
+	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	const count: { [key: string]: number } = {};
+	allBlogPosts.forEach((post: { data: { series?: string } }) => {
+		if (post.data.series) {
+			const seriesName = post.data.series.trim();
+			count[seriesName] = count[seriesName] ? count[seriesName] + 1 : 1;
+		}
+	});
+
+	const lst = Object.keys(count).sort((a, b) => {
+		return a.toLowerCase().localeCompare(b.toLowerCase());
+	});
+
+	return lst.map((key) => ({ name: key, count: count[key] }));
+}
+
+export async function getPostsBySeries(seriesName: string): Promise<PostForList[]> {
+	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	const seriesPosts = allBlogPosts
+		.filter((post) => post.data.series === seriesName)
+		.map((post) => ({
+			slug: post.slug,
+			data: post.data,
+		}));
+
+	return seriesPosts.sort((a, b) => {
+		const dateA = new Date(a.data.published);
+		const dateB = new Date(b.data.published);
+		return dateA > dateB ? -1 : 1;
+	});
 }

@@ -11,6 +11,8 @@
     "astro": "astro",
     "type-check": "tsc --noEmit --isolatedDeclarations",
     "new-post": "node scripts/new-post.js",
+    "import-obsidian": "node scripts/import-obsidian.js",
+    "fix-code-languages": "node scripts/fix-code-languages.js",
     "format": "biome format --write ./src",
     "lint": "biome check --write ./src",
     "preinstall": "npx only-allow pnpm"

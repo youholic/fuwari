@@ -5,6 +5,8 @@ export const LIGHT_MODE = "light",
 	AUTO_MODE = "auto";
 export const DEFAULT_THEME = AUTO_MODE;
 
+export const MERGE_SERIES_ON_HOME = true;
+
 // Banner height unit: vh
 export const BANNER_HEIGHT = 35;
 export const BANNER_HEIGHT_EXTEND = 30;

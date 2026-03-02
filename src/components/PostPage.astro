@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import type { PostOrSeriesCard } from "@utils/content-utils";
 import { getPostUrlBySlug } from "@utils/url-utils";
 import PostCard from "./PostCard.astro";
 
@@ -9,20 +10,51 @@ let delay = 0;
 const interval = 50;
 ---
 <div class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
-    {page.data.map((entry: CollectionEntry<"posts">) => (
-        <PostCard
-                entry={entry}
-                title={entry.data.title}
-                tags={entry.data.tags}
-                category={entry.data.category}
-                published={entry.data.published}
-                updated={entry.data.updated}
-                url={getPostUrlBySlug(entry.slug)}
-                image={entry.data.image}
-                description={entry.data.description}
-                draft={entry.data.draft}
-                class:list="onload-animation"
-                style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
-        ></PostCard>
-    ))}
+    {page.data.map((item: PostOrSeriesCard) => {
+        const isSeriesCard = "isSeriesCard" in item.data && item.data.isSeriesCard === true;
+
+        if (isSeriesCard) {
+            const cardData = item as unknown as { slug: string; data: any };
+
+            return (
+                <PostCard
+                        entry={undefined as any}
+                        title={cardData.data.seriesName}
+                        tags={cardData.data.tags}
+                        category={cardData.data.category}
+                        series={cardData.data.seriesName}
+                        published={cardData.data.published}
+                        updated={cardData.data.updated}
+                        url={cardData.slug}
+                        image={cardData.data.image}
+                        description={`共 ${cardData.data.seriesCount} 篇文章`}
+                        draft={cardData.data.draft}
+                        isSeriesCard={true}
+                        seriesCount={cardData.data.seriesCount}
+                        class:list="onload-animation"
+                        style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
+                ></PostCard>
+            );
+        }
+
+        const entry = item as CollectionEntry<"posts">;
+        return (
+            <PostCard
+                    entry={entry}
+                    title={entry.data.title}
+                    tags={entry.data.tags}
+                    category={entry.data.category}
+                    series={entry.data.series}
+                    published={entry.data.published}
+                    updated={entry.data.updated}
+                    url={getPostUrlBySlug(entry.slug)}
+                    image={entry.data.image}
+                    description={entry.data.description}
+                    draft={entry.data.draft}
+                    isSeriesCard={false}
+                    class:list="onload-animation"
+                    style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
+            ></PostCard>
+        );
+    })}
 </div>

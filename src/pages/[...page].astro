@@ -4,16 +4,22 @@ import Pagination from "../components/control/Pagination.astro";
 import PostPage from "../components/PostPage.astro";
 import { PAGE_SIZE } from "../constants/constants";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
-import { getSortedPosts } from "../utils/content-utils";
+import { getSortedPostsForHome } from "../utils/content-utils";
 
 export const getStaticPaths = (async ({ paginate }) => {
-	const allBlogPosts = await getSortedPosts();
-	const pinned = allBlogPosts.filter((post) => post.data.pinned);
-	const others = allBlogPosts.filter((post) => !post.data.pinned);
-	const homeOrdered = [...pinned, ...others];
+	const allItems = await getSortedPostsForHome();
+
+	const pinned = allItems.filter(
+		(item) => !("isSeriesCard" in item.data) && item.data.pinned
+	);
+	const others = allItems.filter(
+		(item) => !("isSeriesCard" in item.data) && !item.data.pinned
+	);
+	const seriesCards = allItems.filter((item) => "isSeriesCard" in item.data);
+
+	const homeOrdered = [...pinned, ...seriesCards, ...others];
 	return paginate(homeOrdered, { pageSize: PAGE_SIZE });
 }) satisfies GetStaticPaths;
-// https://github.com/withastro/astro/issues/6507#issuecomment-1489916992
 
 const { page } = Astro.props;
 

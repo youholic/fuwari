@@ -1,0 +1,37 @@
+---
+import ArchivePanel from "@components/ArchivePanel.svelte";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getPostsBySeries, getSeriesList } from "@utils/content-utils";
+import { Icon } from "astro-icon/components";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+	const seriesList = await getSeriesList();
+	return seriesList.map((series: { name: string; count: number }) => ({
+		params: { seriesName: series.name },
+	}));
+}) satisfies GetStaticPaths;
+
+const { seriesName } = Astro.params;
+const sortedPosts = await getPostsBySeries(seriesName || "");
+const decodedSeriesName = decodeURIComponent(seriesName || "");
+---
+
+<MainGridLayout title={decodedSeriesName}>
+	<div class="card-base px-8 py-6 mb-6">
+		<div class="flex items-center gap-3 mb-4">
+			<Icon name="material-symbols:bookmarks-rounded" class="text-[1.5rem] text-[var(--primary)]"></Icon>
+			<h1 class="text-2xl font-bold text-90">{decodedSeriesName}</h1>
+			<span class="text-sm text-50">({sortedPosts.length} {sortedPosts.length === 1 ? i18n(I18nKey.postCount) : i18n(I18nKey.postsCount)})</span>
+		</div>
+	</div>
+	{sortedPosts.length > 0 ? (
+		<ArchivePanel sortedPosts={sortedPosts} client:only="svelte"></ArchivePanel>
+	) : (
+		<div class="card-base px-8 py-12 text-center text-50">
+			<p>此合集暂无文章</p>
+		</div>
+	)}
+</MainGridLayout>
