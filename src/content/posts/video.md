@@ -2,7 +2,7 @@
 title: My Video
 published: 2025-11-28
 description: 我制作的剪辑
-tags: [anime]
+tags: [vedio]
 category: Videos
 draft: false
 ---
