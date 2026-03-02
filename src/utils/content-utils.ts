@@ -10,12 +10,22 @@ async function getRawSortedPosts() {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
-	const sorted = allBlogPosts.sort((a, b) => {
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
-		return dateA > dateB ? -1 : 1;
+	// Add original index for stable sorting
+	const postsWithIndex = allBlogPosts.map((post, index) => ({ post, index }));
+
+	const sorted = postsWithIndex.sort((a, b) => {
+		const dateA = new Date(a.post.data.published);
+		const dateB = new Date(b.post.data.published);
+
+		// Sort by date (newest first)
+		if (dateA > dateB) return -1;
+		if (dateA < dateB) return 1;
+
+		// When dates are equal, preserve original order
+		return a.index - b.index;
 	});
-	return sorted;
+
+	return sorted.map(item => item.post);
 }
 
 export async function getSortedPosts() {
@@ -78,13 +88,22 @@ export async function getSortedPostsForHome(): Promise<PostOrSeriesCard[]> {
 
 	const combined = [...seriesPosts, ...postsWithoutSeries];
 
-	combined.sort((a, b) => {
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
-		return dateA > dateB ? -1 : 1;
+	// Add original index for stable sorting
+	const combinedWithIndex = combined.map((item, index) => ({ item, index }));
+
+	combinedWithIndex.sort((a, b) => {
+		const dateA = new Date(a.item.data.published);
+		const dateB = new Date(b.item.data.published);
+
+		// Sort by date (newest first)
+		if (dateA > dateB) return -1;
+		if (dateA < dateB) return 1;
+
+		// When dates are equal, preserve original order
+		return a.index - b.index;
 	});
 
-	return combined;
+	return combinedWithIndex.map(item => item.item);
 }
 export type PostForList = {
 	slug: string;
@@ -205,9 +224,56 @@ export async function getPostsBySeries(seriesName: string): Promise<PostForList[
 			data: post.data,
 		}));
 
-	return seriesPosts.sort((a, b) => {
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
-		return dateA > dateB ? -1 : 1;
+	// Extract sequence number from filename for sorting
+	const postsWithSequenceNumber = seriesPosts.map((post) => {
+		let sequenceNumber: number | string;
+
+		// Get filename from slug (last part after /)
+		const filename = post.slug.split("/").pop() || post.slug;
+
+		// Try to extract number or letter prefix
+		// Patterns: "1-title.md", "A-title.md", etc.
+		const match = filename.match(/^(\d+|[A-Za-z])[-.]/);
+
+		if (match) {
+			const prefix = match[1];
+			const numMatch = prefix.match(/^\d+$/);
+
+			if (numMatch) {
+				sequenceNumber = parseInt(prefix, 10);
+			} else {
+				// Single letter prefix
+				sequenceNumber = prefix.toUpperCase();
+			}
+		} else {
+			// No prefix, use Infinity to sort last
+			sequenceNumber = Infinity;
+		}
+
+		return { post, sequenceNumber };
 	});
+
+	const sorted = postsWithSequenceNumber.sort((a, b) => {
+		// Both are numbers
+		if (typeof a.sequenceNumber === "number" && typeof b.sequenceNumber === "number") {
+			return a.sequenceNumber - b.sequenceNumber;
+		}
+
+		// At least one is string (letter prefix)
+		if (typeof a.sequenceNumber === "number") {
+			return -1; // Numbers first
+		}
+		if (typeof b.sequenceNumber === "number") {
+			return 1;
+		}
+
+		// Both are strings (letters)
+		if (a.sequenceNumber < b.sequenceNumber) return -1;
+		if (a.sequenceNumber > b.sequenceNumber) return 1;
+
+		// Same prefix, preserve original order
+		return 0;
+	});
+
+	return sorted.map(item => item.post);
 }

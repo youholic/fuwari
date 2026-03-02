@@ -1,6 +1,6 @@
 ---
 title: G. FPGA 开发接口协议概览
-published: 2026-03-02
+published: 2025-08-25
 description: ""
 image: ""
 tags: ["FPGA笔记"]

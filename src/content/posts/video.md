@@ -1,9 +1,9 @@
 ---
 title: My Video
-published: 2025-11-28
-description: 我制作的剪辑
+published: 2025-01-28
+description: 我的剪辑
 tags: [vedio]
-category: Videos
+category: Video
 draft: false
 ---
 

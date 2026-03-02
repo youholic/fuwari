@@ -1,0 +1,20 @@
+---
+title: windhawk config
+published: 2025-06-01
+description: "windhawk桌面美化配置"
+tags: [windhawk]
+category: windhawk
+draft: false
+
+---
+
+### MOD：Windows 11 Taskbar Styler
+```
+{"theme":"None","styleConstants":"","resourceVariables":"","controlStyles[0].target":"Taskbar.TaskbarFrame","controlStyles[0].styles[0]":"HorizontalAlignment:=Center","controlStyles[0].styles[1]":"Width:=Auto","controlStyles[0].styles[2]":"Margin:=0,0,0,0","controlStyles[1].target":"Taskbar.TaskbarFrame > Grid#RootGrid","controlStyles[1].styles[0]":"Background:=<WindhawkBlur BlurAmount=\"30\" TintColor=\"{ThemeResource SystemAltHighColor}\" TintOpacity=\"0.2\"/>","controlStyles[1].styles[1]":"CornerRadius:=18","controlStyles[1].styles[2]":"BorderBrush:=#15000000","controlStyles[1].styles[3]":"BorderThickness:=1","controlStyles[1].styles[4]":"Padding:=8,0,8,0","controlStyles[2].target":"Rectangle#BackgroundFill","controlStyles[2].styles[0]":"Visibility:=Collapsed","controlStyles[3].target":"Rectangle#BackgroundStroke","controlStyles[3].styles[0]":"Visibility:=Collapsed","controlStyles[4].target":"Grid#SystemTrayFrameGrid","controlStyles[4].styles[0]":"Background:=<WindhawkBlur BlurAmount=\"30\" TintColor=\"{ThemeResource SystemAltHighColor}\" TintOpacity=\"0.2\"/>","controlStyles[4].styles[1]":"CornerRadius:=18","controlStyles[4].styles[2]":"Margin:=0,0,0,0","controlStyles[4].styles[3]":"BorderBrush:=#15000000","controlStyles[4].styles[4]":"BorderThickness:=1","controlStyles[4].styles[5]":"Padding:=10,0,4,0","controlStyles[5].target":"Border#OverflowFlyoutBackgroundBorder","controlStyles[5].styles[0]":"Background:=<WindhawkBlur BlurAmount=\"30\" TintColor=\"{ThemeResource SystemAltHighColor}\" TintOpacity=\"0.2\"/>"}
+```
+
+### MOD：Windows 11 Start Menu Styler
+#### 注：针对redesigned Windows 11 Start menu，需要加入windows预览体验计划
+```
+{"theme":"Fluid","disableNewStartMenuLayout":0,"controlStyles[0].target":"Border#AcrylicBorder","controlStyles[0].styles[0]":"Background:=<WindhawkBlur BlurAmount=\"30\" TintColor=\"{ThemeResource SystemAltHighColor}\" TintOpacity=\"0.2\"/>","controlStyles[1].target":"Border#AcrylicOverlay","controlStyles[1].styles[0]":"Visibility=Collapsed","controlStyles[2].target":"Border#AppBorder","controlStyles[2].styles[0]":"Background:=<WindhawkBlur BlurAmount=\"30\" TintColor=\"{ThemeResource SystemAltHighColor}\" TintOpacity=\"0.2\"/>","controlStyles[3].target":"Border#LayerBorder","controlStyles[3].styles[0]":"Visibility=Collapsed","controlStyles[4].target":"StartMenu.CategoryControl > Grid > Border","controlStyles[4].styles[0]":"Background=Transparent","controlStyles[5].target":"StartMenu.SearchBoxToggleButton > Grid@CommonStates > Border#BorderElement","controlStyles[5].styles[0]":"Background=Transparent","controlStyles[5].styles[1]":"Background@Normal=Transparent","controlStyles[5].styles[2]":"Background@PointerOver:=<SolidColorBrush Color=\"{ThemeResource ControlFillColorSecondary}\" Opacity=\"0.4\"/>","controlStyles[5].styles[3]":"Background@Pressed:=<SolidColorBrush Color=\"{ThemeResource ControlFillColorTertiary}\" Opacity=\"0.4\"/>","controlStyles[5].styles[4]":"Background@Checked=Transparent","controlStyles[5].styles[5]":"Background@CheckedPointerOver:=<SolidColorBrush Color=\"{ThemeResource ControlFillColorSecondary}\" Opacity=\"0.4\"/>","controlStyles[5].styles[6]":"Background@CheckedPressed:=<SolidColorBrush Color=\"{ThemeResource ControlFillColorTertiary}\" Opacity=\"0.4\"/>","controlStyles[6].target":"Grid@SearchBoxInputStates > Border#TaskbarSearchBackground","controlStyles[6].styles[0]":"Background=Transparent","controlStyles[6].styles[1]":"Background@ActiveInput=Transparent","controlStyles[6].styles[2]":"Background@SearchBoxHover:=<SolidColorBrush Color=\"{ThemeResource ControlFillColorSecondary}\" Opacity=\"0.4\"/>","controlStyles[6].styles[3]":"Background@NoFocus=Transparent","webContentStyles[0].target":"","webContentStyles[0].styles[0]":"","webContentCustomJs":"","styleConstants[0]":"borderColor=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"0\" Opacity=\"0.6\" FallbackColor=\"#20000000\" />","resourceVariables[0].variableKey":"","resourceVariables[0].value":""}
+```

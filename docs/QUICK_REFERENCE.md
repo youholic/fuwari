@@ -93,7 +93,8 @@ series: "系列名称"
 同一系列的文章：
 - 在主页合并为一个卡片
 - 点击卡片查看系列所有文章
-- 按时间倒序排列
+- **按文件名序号排序**（如 `1. 标题.md`）
+- 若文件名无序号，则按日期排序
 
 ### 配置
 
@@ -203,6 +204,7 @@ pnpm lint
 
 - [Obsidian 导入指南](./OBSIDIAN_IMPORT.md)
 - [代码语言修复](./CODE_LANGUAGE_FIX.md)
+- [按文件名序号排序](./FILENAME_NUMBER_SORT.md)
 - [AGENTS.md](../AGENTS.md) - 开发者指南
 
 ## 快速开始新项目

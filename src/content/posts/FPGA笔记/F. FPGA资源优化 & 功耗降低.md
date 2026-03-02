@@ -1,6 +1,6 @@
 ---
 title: F. FPGA资源优化 & 功耗降低
-published: 2026-03-02
+published: 2025-08-25
 description: ""
 image: ""
 tags: ["FPGA笔记"]

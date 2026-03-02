@@ -1,7 +1,7 @@
 ---
 Top: "4"
 title: D. FPGA架构：可配置逻辑块 CLB
-published: 2026-03-02
+published: 2025-08-25
 category: FPGA笔记
 series: FPGA笔记
 tags: ["FPGA笔记"]

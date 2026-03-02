@@ -1,7 +1,7 @@
 ---
 Top: "5"
 title: E. FPGA开发流程
-published: 2026-03-02
+published: 2025-08-25
 category: FPGA笔记
 series: FPGA笔记
 tags: ["FPGA笔记"]

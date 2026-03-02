@@ -34,6 +34,7 @@ A static blog template built with [Astro](https://astro.build).
 
 ### 🆕 Enhanced Features
 - [x] **Series / Collection Support** - Group related posts into series, displayed as a single card on homepage
+- [x] **Stable Sorting** - When dates are equal, maintains original import order for consistent series display
 - [x] **Obsidian Import Tool** - One-click import Obsidian vault with automatic Wiki link conversion
 - [x] **Code Block Language Auto-Fix** - Automatically map unsupported languages to supported alternatives
 - [x] **Smart Frontmatter Management** - Auto-add complete frontmatter when importing or creating posts
@@ -125,7 +126,8 @@ draft: false
 When multiple posts share the same `series` field:
 - They appear as a single card on the homepage (configurable)
 - Clicking the card opens the series page showing all posts
-- Posts are sorted by publication date (newest first)
+- Posts are sorted by filename sequence number (e.g., `1. title.md`, `2. title.md`)
+- Files without sequence numbers are sorted by publication date
 
 **Configuration:** Set `MERGE_SERIES_ON_HOME` in `src/constants/constants.ts` to enable/disable series merging.
 
@@ -285,6 +287,7 @@ pnpm type-check
 
 - **[Quick Reference](docs/QUICK_REFERENCE.md)** - Command cheat sheet and common tasks
 - **[Obsidian Import Guide](docs/OBSIDIAN_IMPORT.md)** - Detailed import documentation
+- **[Filename Number Sorting](docs/FILENAME_NUMBER_SORT.md)** - Sort posts by filename sequence number
 - **[Code Language Fix](docs/CODE_LANGUAGE_FIX.md)** - Language mapping solutions
 - **[AGENTS.md](AGENTS.md)** - Developer guide for AI coding assistants
 - **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
