@@ -3,7 +3,7 @@ title: windhawk config
 published: 2025-06-01
 description: "windhawk桌面美化配置"
 tags: [windhawk]
-category: windhawk
+category: Guides
 draft: false
 
 ---

@@ -139,7 +139,43 @@ function convertWikiLinks(content, allFilesMap) {
 	})
 }
 
-function processFile(sourcePath, relativePath, allFilesMap) {
+function convertImageLinks(content, allImagesMap, markdownRelativePath) {
+	let result = content
+
+	result = result.replace(/!\[\[(.*?)\]\]/g, (match, linkText) => {
+		const parts = linkText.split("|")
+		let targetFile = parts[0].trim()
+		let altText = parts[1] ? parts[1].trim() : ""
+
+		const imageSourcePath = allImagesMap.get(targetFile)
+		if (imageSourcePath) {
+			const markdownDir = path.dirname(markdownRelativePath)
+			const imageRelativePath = path.relative(markdownDir, imageSourcePath)
+			const normalizedPath = imageRelativePath.replace(/\\/g, "/")
+			return `![${altText}](${normalizedPath})`
+		}
+
+		return match
+	})
+
+	result = result.replace(/!\[(.*?)\]\((\.\/.*?)\)/g, (match, altText, imagePath) => {
+		const imageFileName = path.basename(imagePath)
+		const imageSourcePath = allImagesMap.get(imageFileName)
+
+		if (imageSourcePath) {
+			const markdownDir = path.dirname(markdownRelativePath)
+			const imageRelativePath = path.relative(markdownDir, imageSourcePath)
+			const normalizedPath = imageRelativePath.replace(/\\/g, "/")
+			return `![${altText}](${normalizedPath})`
+		}
+
+		return match
+	})
+
+	return result
+}
+
+function processFile(sourcePath, relativePath, allFilesMap, allImagesMap) {
 	const targetPath = path.join(TARGET_DIR, relativePath)
 
 	const dirPath = path.dirname(targetPath)
@@ -211,7 +247,7 @@ lang: zh_CN
 	}
 
 	content = convertWikiLinks(content, allFilesMap)
-
+	content = convertImageLinks(content, allImagesMap, relativePath)
 	content = processCodeBlocks(content)
 
 	fs.writeFileSync(targetPath, content, "utf-8")
@@ -297,6 +333,7 @@ console.log(`   Found ${allFiles.size} Markdown files\n`)
 
 console.log("🖼️ Scanning for image files...")
 const allFilesMap = getAllFiles(OBSIDIAN_VAULT)
+const allImagesMap = new Map()
 let imageCount = 0
 
 for (const [relativePath, sourcePath] of allFilesMap.entries()) {
@@ -309,6 +346,7 @@ for (const [relativePath, sourcePath] of allFilesMap.entries()) {
 		}
 
 		fs.copyFileSync(sourcePath, targetPath)
+		allImagesMap.set(path.basename(relativePath), relativePath)
 		imageCount++
 	}
 }
@@ -331,7 +369,7 @@ function processDirectory(dir, relativePath = "") {
 				processDirectory(fullPath, entryRelativePath)
 			}
 		} else if (entry.isFile() && entry.name.endsWith(".md")) {
-			processFile(fullPath, entryRelativePath, allFiles)
+			processFile(fullPath, entryRelativePath, allFiles, allImagesMap)
 			processedCount++
 			console.log(`   ✓ ${entryRelativePath}`)
 		}
