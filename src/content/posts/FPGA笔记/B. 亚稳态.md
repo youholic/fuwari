@@ -2,7 +2,7 @@
 Top: "2"
 title: B. 亚稳态
 published: 2025-08-25
-category: FPGA笔记
+category: note
 series: FPGA笔记
 tags: ["FPGA笔记"]
 draft: false

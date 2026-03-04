@@ -4,7 +4,7 @@ published: 2025-08-25
 description: ""
 image: ""
 tags: ["FPGA笔记"]
-category: FPGA笔记
+category: note
 series: FPGA笔记
 draft: false
 lang: zh_CN

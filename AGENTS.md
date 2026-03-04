@@ -145,10 +145,39 @@ Biome enforces these rules (recommended + custom):
 
 ### Obsidian Import
 - Use `pnpm import-obsidian <vault-path> [series-name]` to import notes
+- **Custom configuration supported** (optional):
+  - `--date="YYYY-MM-DD"` - Set publish date for all posts
+  - `--category="name"` - Set category for all posts
+  - `--tags="tag1,tag2,tag3"` - Set tags for all posts (comma-separated)
 - Wiki links `[[file]]` are automatically converted to web links
 - Code blocks with unsupported languages are auto-mapped
+- **Images automatically copied** - Supports PNG, JPG, GIF, SVG, WebP, BMP, ICO
 - Preserves directory structure and existing frontmatter
 - Skips `.obsidian`, `.git`, `node_modules` directories
+
+#### Examples
+
+```bash
+# Basic import
+pnpm import-obsidian ~/Notes "My Series"
+
+# With custom date, category, and tags
+pnpm import-obsidian ~/Notes "My Series" \
+  --date="2025-01-15" \
+  --category="Tech Docs" \
+  --tags="JavaScript,React,Coding"
+
+# With custom date only
+pnpm import-obsidian ~/Notes "My Series" --date="2024-12-01"
+```
+
+#### Configuration Scope
+
+- **Global application**: Custom values apply to all imported documents
+- **Default values**:
+  - Date: Today
+  - Category: Series name
+  - Tags: Series name
 
 ### Code Block Language Handling
 - Expressive Code supports many but not all languages

@@ -2,7 +2,7 @@
 Top: "3"
 title: C. 有限状态机FSM
 published: 2025-08-25
-category: FPGA笔记
+category: note
 series: FPGA笔记
 tags: ["FPGA笔记"]
 draft: false

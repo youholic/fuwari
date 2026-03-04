@@ -2,19 +2,45 @@
 
 import fs from "fs"
 import path from "path"
+import { fileURLToPath } from "url"
+import { dirname, join } from "path"
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+// Parse command line arguments
 const OBSIDIAN_VAULT = process.argv[2]
 const SERIES_NAME = process.argv[3] || path.basename(OBSIDIAN_VAULT || "")
 const TARGET_DIR = "./src/content/posts/"
 
+// Optional custom values from command line
+const CUSTOM_CONFIG = {
+	date: process.argv.find(arg => arg.startsWith("--date="))?.split("=")[1],
+	category: process.argv.find(arg => arg.startsWith("--category="))?.split("=")[1],
+	tags: process.argv.find(arg => arg.startsWith("--tags="))?.split("=")[1],
+}
+
 if (!OBSIDIAN_VAULT || !fs.existsSync(OBSIDIAN_VAULT)) {
 	console.error(`Error: Invalid Obsidian vault path: ${OBSIDIAN_VAULT}`)
-	console.error(`Usage: node scripts/import-obsidian.js <obsidian-vault-path> [series-name]`)
+	console.error(`\nUsage: node scripts/import-obsidian.js <obsidian-vault-path> [series-name] [options]`)
+	console.error(`\nOptions:`)
+	console.error(`  --date="YYYY-MM-DD"       Set default publish date for all posts`)
+	console.error(`  --category="category-name"  Set category for all posts`)
+	console.error(`  --tags="tag1,tag2,tag3"  Set tags for all posts (comma-separated)`)
+	console.error(`\nExamples:`)
+	console.error(`  # Basic import (uses vault name as series)`)
+	console.error(`  node scripts/import-obsidian.js ~/Notes`)
+	console.error(`  # Import with custom series name`)
+	console.error(`  node scripts/import-obsidian.js ~/Notes "My Tutorial"`)
+	console.error(`  # Import with custom date, category, and tags`)
+	console.error(`  node scripts/import-obsidian.js ~/Notes "My Tutorial" --date="2025-01-15" --category="Technology" --tags="JavaScript,Coding"`)
 	process.exit(1)
 }
 
-const CATEGORY = SERIES_NAME
-const TAGS = [SERIES_NAME]
+// Use custom values if provided, otherwise use defaults
+const DEFAULT_DATE = CUSTOM_CONFIG.date || getDate()
+const CATEGORY = CUSTOM_CONFIG.category || SERIES_NAME
+const TAGS = CUSTOM_CONFIG.tags ? CUSTOM_CONFIG.tags.split(",").map(t => t.trim()) : [SERIES_NAME]
 
 function getDate() {
 	const today = new Date()
@@ -131,7 +157,7 @@ function processFile(sourcePath, relativePath, allFilesMap) {
 	if (!hasFrontmatter) {
 		const frontmatter = `---
 title: ${title}
-published: ${getDate()}
+published: ${DEFAULT_DATE}
 description: ""
 image: ""
 tags: ${JSON.stringify(TAGS)}
@@ -157,7 +183,7 @@ lang: zh_CN
 				})
 
 				frontmatterMap.title = title
-				frontmatterMap.published = getDate()
+				frontmatterMap.published = DEFAULT_DATE
 				frontmatterMap.category = CATEGORY
 				frontmatterMap.series = SERIES_NAME
 
@@ -261,6 +287,7 @@ function copyFile(sourcePath, relativePath) {
 
 console.log(`\n📦 Importing Obsidian vault: ${OBSIDIAN_VAULT}`)
 console.log(`📚 Series name: ${SERIES_NAME}`)
+console.log(`📅 Default date: ${DEFAULT_DATE}`)
 console.log(`🏷️  Category: ${CATEGORY}`)
 console.log(`🔖 Tags: ${TAGS.join(", ")}\n`)
 

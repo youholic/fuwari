@@ -23,7 +23,35 @@ pnpm preview
 pnpm new-post "文章标题"
 
 # 导入 Obsidian 仓库
+
+## 基本用法
+```bash
 pnpm import-obsidian /path/to/vault [系列名称]
+```
+
+## 自定义配置（可选）
+
+```bash
+# 完全自定义（日期、分类、标签）
+pnpm import-obsidian /path/to/vault "系列名称" \
+  --date="2025-01-15" \
+  --category="技术文档" \
+  --tags="JavaScript,React,前端"
+
+# 只自定义日期
+pnpm import-obsidian /path/to/vault "系列名称" --date="2025-01-01"
+
+# 只自定义分类
+pnpm import-obsidian /path/to/vault "系列名称" --category="编程"
+
+# 只自定义标签
+pnpm import-obsidian /path/to/vault "系列名称" --tags="React,Vue,前端"
+```
+
+**参数说明：**
+- `--date="YYYY-MM-DD"` - 设置所有文档的发布日期
+- `--category="名称"` - 设置所有文档的分类
+- `--tags="tag1,tag2,tag3"` - 设置所有文档的标签（逗号分隔）
 
 # 修复代码块语言
 pnpm fix-code-languages

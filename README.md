@@ -196,8 +196,16 @@ pnpm import-obsidian ~/Documents/MyNotes
 # Import with custom series name
 pnpm import-obsidian ~/Documents/MyNotes "My Learning Notes"
 
+# Import with custom date, category, and tags
+pnpm import-obsidian ~/Documents/MyNotes "My Tutorial" \
+  --date="2025-01-15" \
+  --category="Technology" \
+  --tags="JavaScript,Coding,Tutorial"
+
 # Import specific folder
-pnpm import-obsidian ~/Documents/MyNotes/Folder "Series Name"
+pnpm import-obsidian ~/Documents/MyNotes/Folder "Series Name" \
+  --date="2024-12-01" \
+  --category="Documentation"
 ```
 
 ### Wiki Link Conversion
@@ -288,6 +296,7 @@ pnpm type-check
 
 - **[Quick Reference](docs/QUICK_REFERENCE.md)** - Command cheat sheet and common tasks
 - **[Obsidian Import Guide](docs/OBSIDIAN_IMPORT.md)** - Detailed import documentation
+- **[Custom Import Config](docs/CUSTOM_IMPORT_CONFIG.md)** - How to customize date, category, and tags
 - **[Import with Images Guide](docs/IMPORT_WITH_IMAGES.md)** - How to import notes with images
 - **[Filename Number Sorting](docs/FILENAME_NUMBER_SORT.md)** - Sort posts by filename sequence number
 - **[Code Language Fix](docs/CODE_LANGUAGE_FIX.md)** - Language mapping solutions

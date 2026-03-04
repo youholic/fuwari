@@ -14,6 +14,16 @@
 
 ## 使用方法
 
+### 参数说明
+
+导入脚本支持以下自定义参数：
+
+| 参数 | 说明 | 示例 | 默认值 |
+|------|------|------|--------|
+| `--date` | 设置所有文档的发布日期 | `--date="2025-01-15"` | 今天 |
+| `--category` | 设置所有文档的分类 | `--category="技术"` | 系列名称 |
+| `--tags` | 设置所有文档的标签（逗号分隔） | `--tags="tag1,tag2"` | 系列名称 |
+
 ### 基本用法
 
 ```bash
@@ -26,6 +36,29 @@ pnpm import-obsidian /path/to/your/vault
 ```bash
 # 使用自定义系列名称（默认使用仓库名称）
 pnpm import-obsidian /path/to/your/vault "我的笔记系列"
+```
+
+### 完全自定义
+
+```bash
+# 自定义日期、分类和标签
+pnpm import-obsidian /path/to/your/vault "系列名称" \
+  --date="2025-01-15" \
+  --category="技术文档" \
+  --tags="JavaScript,编程,教程"
+```
+
+### 部分自定义
+
+```bash
+# 只自定义日期
+pnpm import-obsidian /path/to/vault "教程系列" --date="2024-12-01"
+
+# 只自定义分类
+pnpm import-obsidian /path/to/vault "教程系列" --category="编程"
+
+# 只自定义标签
+pnpm import-obsidian /path/to/vault "教程系列" --tags="React,Vue,前端"
 ```
 
 ## 前置要求
@@ -293,6 +326,110 @@ const skipDirs = [".obsidian", ".git", "node_modules", ".trash", "私人笔记"]
 ### 自定义 frontmatter 模板
 
 编辑脚本中的 frontmatter 模板部分，添加你需要的字段。
+
+## 自定义配置详解
+
+### 生成的 frontmatter 示例
+
+使用自定义参数后，所有文档都会应用相同的配置：
+
+```yaml
+---
+title: 文档标题  # 从文件名提取
+published: 2025-01-15  # 自定义日期
+description: ""          # 空描述
+image: ""              # 空图片
+tags: ["JavaScript", "React", "前端"]  # 自定义标签
+category: 技术文档      # 自定义分类
+series: 我的笔记系列     # 系列名称
+draft: false
+lang: zh_CN
+---
+```
+
+### 应用范围
+
+- ✅ **所有 Markdown 文件**：都会应用自定义的日期、分类、标签
+- ✅ **已有 frontmatter**：会被更新，保留其他字段
+- ✅ **保留现有值**：文档中其他自定义字段不会丢失
+
+### 使用场景
+
+#### 场景 1：导入历史笔记
+
+将旧笔记设置为统一的发布日期：
+
+```bash
+pnpm import-obsidian ~/ArchiveNotes "历史笔记" --date="2023-01-01"
+```
+
+#### 场景 2：系列使用不同标签
+
+不同系列使用不同的标签组合：
+
+```bash
+# 前端系列
+pnpm import-obsidian ~/FrontendNotes "前端系列" \
+  --tags="HTML,CSS,JavaScript"
+
+# 后端系列
+pnpm import-obsidian ~/BackendNotes "后端系列" \
+  --tags="Node.js,Python,Go"
+```
+
+#### 场景 3：统一分类管理
+
+将不同来源的笔记都归类到同一分类：
+
+```bash
+pnpm import-obsidian ~/Obsidian1 "系列1" --category="我的知识库"
+pnpm import-obsidian ~/Obsidian2 "系列2" --category="我的知识库"
+```
+
+### 参数格式要求
+
+#### 日期格式
+
+```bash
+# ✅ 正确
+--date="2025-01-15"
+
+# ❌ 错误
+--date = 2025-01-15
+--date="2025/01/15"
+```
+
+#### 标签格式
+
+```bash
+# ✅ 正确（英文逗号分隔，无空格）
+--tags="JavaScript,React,Vue"
+
+# ❌ 错误（使用空格）
+--tags="JavaScript React Vue"
+```
+
+#### 分类和系列名称
+
+```bash
+# ✅ 正确（用双引号）
+--category="技术文档"
+
+# ❌ 错误（如果包含空格）
+--category=技术文档
+```
+
+### 导入后调整
+
+导入完成后，你可以手动编辑个别文档的 frontmatter：
+
+```bash
+# 打开文件编辑
+vim src/content/posts/series1/chapter1.md
+
+# 或修改日期
+sed -i 's/published: 2025-01-15/published: 2025-01-20/' src/content/posts/series1/chapter1.md
+```
 
 ## 技术细节
 

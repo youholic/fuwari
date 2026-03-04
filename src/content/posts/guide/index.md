@@ -3,7 +3,7 @@ title: 本站说明
 published: 2025-01-28
 description: "本站说明"
 image: "./96275146_p0.jpg"
-tags: ["Guides"]
+tags: [Introduce]
 category: Guides
 draft: false
 pinned: true
