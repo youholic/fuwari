@@ -55,7 +55,7 @@ export default defineConfig({
 				"fa6-solid": ["*"],
 			},
 		}),
-		expressiveCode({
+	expressiveCode({
 			themes: [expressiveCodeConfig.theme, expressiveCodeConfig.theme],
 			plugins: [
 				pluginCollapsibleSections(),

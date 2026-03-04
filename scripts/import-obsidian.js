@@ -96,7 +96,8 @@ function mapLanguage(lang) {
 		"javascript", "typescript", "python", "java", "c", "cpp",
 		"go", "rust", "ruby", "php", "swift", "kotlin", "scala",
 		"html", "css", "json", "xml", "yaml", "toml", "sql",
-		"bash", "sh", "powershell", "dockerfile", "makefile"
+		"bash", "sh", "powershell", "dockerfile", "makefile",
+		"mermaid"
 	]
 
 	if (commonLanguages.includes(lowerLang)) {
