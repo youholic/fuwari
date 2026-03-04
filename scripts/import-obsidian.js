@@ -271,7 +271,8 @@ function getAllMarkdownFiles(dir, baseDir = dir) {
 			} else if (entry.isFile() && entry.name.endsWith(".md")) {
 				const relativePath = path.relative(baseDir, fullPath)
 				const fileName = sanitizeFilename(path.basename(entry.name, ".md"))
-				files.set(fileName, path.join(TARGET_DIR, relativePath))
+				const targetRelativePath = path.join(SERIES_NAME, relativePath)
+				files.set(fileName, path.join(TARGET_DIR, targetRelativePath))
 			}
 		}
 	}
@@ -339,7 +340,8 @@ let imageCount = 0
 
 for (const [relativePath, sourcePath] of allFilesMap.entries()) {
 	if (isImageFile(relativePath)) {
-		const targetPath = path.join(TARGET_DIR, relativePath)
+		const targetRelativePath = path.join(SERIES_NAME, relativePath)
+		const targetPath = path.join(TARGET_DIR, targetRelativePath)
 		const dirPath = path.dirname(targetPath)
 
 		if (!fs.existsSync(dirPath)) {
@@ -347,7 +349,7 @@ for (const [relativePath, sourcePath] of allFilesMap.entries()) {
 		}
 
 		fs.copyFileSync(sourcePath, targetPath)
-		allImagesMap.set(path.basename(relativePath), relativePath)
+		allImagesMap.set(path.basename(relativePath), targetRelativePath)
 		imageCount++
 	}
 }
@@ -370,9 +372,10 @@ function processDirectory(dir, relativePath = "") {
 				processDirectory(fullPath, entryRelativePath)
 			}
 		} else if (entry.isFile() && entry.name.endsWith(".md")) {
-			processFile(fullPath, entryRelativePath, allFiles, allImagesMap)
+			const targetRelativePath = path.join(SERIES_NAME, entryRelativePath)
+			processFile(fullPath, targetRelativePath, allFiles, allImagesMap)
 			processedCount++
-			console.log(`   ✓ ${entryRelativePath}`)
+			console.log(`   ✓ ${targetRelativePath}`)
 		}
 	}
 }

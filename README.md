@@ -1,330 +1,294 @@
 # 🍥Fuwari
-![Node.js >= 18.20.8](https://img.shields.io/badge/node.js-%3E%3D18.20.8-brightgreen)
-![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)
-[![DeepWiki](https://img.shields.io/badge/DeepWiki-saicaca%2Ffuwari-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAyCAYAAAAnWDnqAAAAAXNSR0IArs4c6QAAA05JREFUaEPtmUtyEzEQhtWTQyQLHNak2AB7ZnyXZMEjXMGeK/AIi+QuHrMnbChYY7MIh8g01fJoopFb0uhhEqqcbWTp06/uv1saEDv4O3n3dV60RfP947Mm9/SQc0ICFQgzfc4CYZoTPAswgSJCCUJUnAAoRHOAUOcATwbmVLWdGoH//PB8mnKqScAhsD0kYP3j/Yt5LPQe2KvcXmGvRHcDnpxfL2zOYJ1mFwrryWTz0advv1Ut4CJgf5uhDuDj5eUcAUoahrdY/56ebRWeraTjMt/00Sh3UDtjgHtQNHwcRGOC98BJEAEymycmYcWwOprTgcB6VZ5JK5TAJ+fXGLBm3FDAmn6oPPjR4rKCAoJCal2eAiQp2x0vxTPB3ALO2CRkwmDy5WohzBDwSEFKRwPbknEggCPB/imwrycgxX2NzoMCHhPkDwqYMr9tRcP5qNrMZHkVnOjRMWwLCcr8ohBVb1OMjxLwGCvjTikrsBOiA6fNyCrm8V1rP93iVPpwaE+gO0SsWmPiXB+jikdf6SizrT5qKasx5j8ABbHpFTx+vFXp9EnYQmLx02h1QTTrl6eDqxLnGjporxl3NL3agEvXdT0WmEost648sQOYAeJS9Q7bfUVoMGnjo4AZdUMQku50McDcMWcBPvr0SzbTAFDfvJqwLzgxwATnCgnp4wDl6Aa+Ax283gghmj+vj7feE2KBBRMW3FzOpLOADl0Isb5587h/U4gGvkt5v60Z1VLG8BhYjbzRwyQZemwAd6cCR5/XFWLYZRIMpX39AR0tjaGGiGzLVyhse5C9RKC6ai42ppWPKiBagOvaYk8lO7DajerabOZP46Lby5wKjw1HCRx7p9sVMOWGzb/vA1hwiWc6jm3MvQDTogQkiqIhJV0nBQBTU+3okKCFDy9WwferkHjtxib7t3xIUQtHxnIwtx4mpg26/HfwVNVDb4oI9RHmx5WGelRVlrtiw43zboCLaxv46AZeB3IlTkwouebTr1y2NjSpHz68WNFjHvupy3q8TFn3Hos2IAk4Ju5dCo8B3wP7VPr/FGaKiG+T+v+TQqIrOqMTL1VdWV1DdmcbO8KXBz6esmYWYKPwDL5b5FA1a0hwapHiom0r/cKaoqr+27/XcrS5UwSMbQAAAABJRU5ErkJggg==)](https://deepwiki.com/saicaca/fuwari)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari?ref=badge_shield&issueType=license)
 
-A static blog template built with [Astro](https://astro.build).
+基于 [Astro](https://astro.build) 开发的静态博客模板。
 
-[**🖥️ Live Demo**](https://fuwari.vercel.app)
+[**🖥️在线预览（Vercel）**](https://fuwari.vercel.app)
 
 ![Preview Image](https://raw.githubusercontent.com/saicaca/resource/main/fuwari/home.png)
 
-🌏 README in
-[**中文**](docs/README.zh-CN.md) /
-[**日本語**](docs/README.ja.md) /
-[**한국어**](docs/README.ko.md) /
-[**Español**](docs/README.es.md) /
-[**ไทย**](docs/README.th.md) /
-[**Tiếng Việt**](docs/README.vi.md) /
-[**Bahasa Indonesia**](docs/README.id.md)
+## ✨ 功能特性
 
-## ✨ Features
+- [x] 基于 Astro 和 Tailwind CSS 开发
+- [x] 流畅的动画和页面过渡
+- [x] 亮色 / 暗色模式
+- [x] 自定义主题色和横幅图片
+- [x] 响应式设计
+- [ ] 评论
+- [x] 搜索
+- [x] 文内目录
+- [x] 系列/合集功能
+- [x] Obsidian 笔记导入
 
-### Core Features
-- [x] Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
-- [x] Smooth animations and page transitions
-- [x] Light / dark mode
-- [x] Customizable theme colors & banner
-- [x] Responsive design
-- [x] Search functionality with [Pagefind](https://pagefind.app/)
-- [x] [Markdown extended features](#-markdown-extended-syntax)
-- [x] Table of contents
-- [x] RSS feed
+## 👀 要求
 
-### 🆕 Enhanced Features
-- [x] **Series / Collection Support** - Group related posts into series, displayed as a single card on homepage
-- [x] **Stable Sorting** - When dates are equal, maintains original import order for consistent series display
-- [x] **Obsidian Import Tool** - One-click import Obsidian vault with automatic Wiki link conversion
-- [x] **Code Block Language Auto-Fix** - Automatically map unsupported languages to supported alternatives
-- [x] **Smart Frontmatter Management** - Auto-add complete frontmatter when importing or creating posts
+- Node.js >= 18.20.8
+- pnpm <= 9
 
-## 🚀 Getting Started
+## 🚀 使用方法 1
 
-### Quick Start with Obsidian
+使用 [create-fuwari](https://github.com/L4Ph/create-fuwari) 在本地初始化项目。
 
-If you have an Obsidian vault, import it directly:
+```sh
+# npm
+npm create fuwari@latest
 
-```bash
-# Install dependencies
-pnpm install
+# yarn
+yarn create fuwari
 
-# Import your Obsidian vault
-pnpm import-obsidian /path/to/your/obsidian/vault
+# pnpm
+pnpm create fuwari@latest
 
-# Start development server
-pnpm dev
+# bun
+bun create fuwari@latest
+
+# deno
+deno run -A npm:create-fuwari@latest
 ```
 
-### Standard Setup
+1. 通过配置文件 `src/config.ts` 自定义博客
+2. 执行 `pnpm new-post <filename>` 创建新文章，并在 `src/content/posts/` 目录中编辑
+3. 参考[官方指南](https://docs.astro.build/zh-cn/guides/deploy/)将博客部署至 Vercel, Netlify, GitHub Pages 等；部署前需编辑 `astro.config.mjs` 中的站点设置。
 
-1. **Create your blog repository:**
-   - [Generate a new repository](https://github.com/saicaca/fuwari/generate) from this template
-   - Or fork this repository
+## 🚀 使用方法 2
 
-2. **Install dependencies:**
-   ```bash
-   pnpm install
-   ```
-   - Install [pnpm](https://pnpm.io) `npm install -g pnpm` if you haven't
+1. 使用此模板[生成新仓库](https://github.com/saicaca/fuwari/generate)或 Fork 此仓库
+2. 进行本地开发，Clone 新的仓库，执行 `pnpm install` 和 `pnpm add sharp` 以安装依赖
+   - 若未安装 [pnpm](https://pnpm.io)，执行 `npm install -g pnpm`
+3. 通过配置文件 `src/config.ts` 自定义博客
+4. 执行 `pnpm new-post <filename>` 创建新文章，并在 `src/content/posts/` 目录中编辑
+5. 参考[官方指南](https://docs.astro.build/zh-cn/guides/deploy/)将博客部署至 Vercel, Netlify, GitHub Pages 等；部署前需编辑 `astro.config.mjs` 中的站点设置。
 
-3. **Customize your blog:**
-   - Edit `src/config.ts` to configure site title, theme, navigation, etc.
-
-4. **Create content:**
-   ```bash
-   # Create a new post
-   pnpm new-post "Your Post Title"
-
-   # Or import from Obsidian
-   pnpm import-obsidian /path/to/vault "Series Name"
-   ```
-
-5. **Start development:**
-   ```bash
-   pnpm dev
-   # Visit http://localhost:4321
-   ```
-
-6. **Deploy:**
-   - Build: `pnpm build`
-   - Deploy `dist/` directory to Vercel, Netlify, GitHub Pages, etc.
-   - See [Astro deployment guides](https://docs.astro.build/en/guides/deploy/)
-
-## 📝 Frontmatter of Posts
-
-### Basic Frontmatter
+## ⚙️ 文章 Frontmatter
 
 ```yaml
 ---
 title: My First Blog Post
 published: 2023-09-09
-description: This is my first post
+description: This is the first post of my new Astro blog.
 image: ./cover.jpg
-tags: [Tag1, Tag2]
-category: Category Name
-draft: false
-lang: en      # Optional: set only if different from site's language
----
-```
-
-### Series/Collection Frontmatter
-
-```yaml
----
-title: JavaScript Tutorial Part 1
-published: 2023-09-09
-description: First post in the tutorial series
-image: ./cover.jpg
-tags: [JavaScript, Tutorial]
+tags: [Foo, Bar]
 category: Front-end
-series: JavaScript Tutorial  # New: Groups posts into a series
 draft: false
+lang: jp      # 仅当文章语言与 `config.ts` 中的网站语言不同时需要设置
+series: 系列名称  # 可选：将文章归入系列
 ---
 ```
 
-When multiple posts share the same `series` field:
-- They appear as a single card on the homepage (configurable)
-- Clicking the card opens the series page showing all posts
-- Posts are sorted by filename sequence number (e.g., `1. title.md`, `2. title.md`)
-- Files without sequence numbers are sorted by publication date
+## 🧞 命令
 
-**Configuration:** Set `MERGE_SERIES_ON_HOME` in `src/constants/constants.ts` to enable/disable series merging.
+下列命令均需要在项目根目录执行：
 
-## 🧩 Markdown Extended Syntax
+| Command                           | Action                            |
+|:----------------------------------|:----------------------------------|
+| `pnpm install` 并 `pnpm add sharp` | 安装依赖                              |
+| `pnpm dev`                        | 在 `localhost:4321` 启动本地开发服务器      |
+| `pnpm build`                      | 构建网站至 `./dist/`                   |
+| `pnpm preview`                    | 本地预览已构建的网站                        |
+| `pnpm new-post <filename>`        | 创建新文章                             |
+| `pnpm import-obsidian <path>`     | 导入 Obsidian 笔记仓库                  |
+| `pnpm fix-code-languages`         | 修复代码块语言标记                         |
+| `pnpm check`                      | 运行 Astro 检查                        |
+| `pnpm type-check`                 | 运行 TypeScript 类型检查                |
+| `pnpm lint`                       | 运行 Biome linter 并自动修复               |
+| `pnpm format`                     | 使用 Biome 格式化代码                    |
+| `pnpm astro ...`                  | 执行 `astro add`, `astro check` 等指令 |
+| `pnpm astro --help`               | 显示 Astro CLI 帮助                   |
 
-In addition to Astro's default support for [GitHub Flavored Markdown](https://github.github.com/gfm/), several extra Markdown features are included:
+## 📦 Obsidian 笔记导入
 
-- **Admonitions** - Callout boxes for notes, tips, warnings, etc.
-  [Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#admonitions)
-- **GitHub Repository Cards** - Embed GitHub repo cards
-  [Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#github-repository-cards)
-- **Enhanced Code Blocks** - Syntax highlighting with Expressive Code
-  [Preview](https://fuwari.vercel.app/posts/expressive-code/) / [Docs](https://expressive-code.com/)
+支持一键导入 Obsidian 笔记仓库，自动处理图片、链接、代码块等。
 
-## 🚀 Commands
-
-All commands are run from the root of the project:
-
-### Development & Building
-| Command | Action |
-|:---------------------------|:----------------------------------------------------|
-| `pnpm install` | Installs dependencies |
-| `pnpm dev` | Starts local dev server at `localhost:4321` |
-| `pnpm build` | Build production site to `./dist/` (runs pagefind) |
-| `pnpm preview` | Preview production build locally |
-
-### Content Management
-| Command | Action |
-|:---------------------------|:----------------------------------------------------|
-| `pnpm new-post <filename>` | Create a new post in `src/content/posts/` |
-| `pnpm import-obsidian <path> [series-name]` | Import Obsidian vault with auto-conversion |
-| `pnpm fix-code-languages` | Fix unsupported code block languages |
-
-### Code Quality
-| Command | Action |
-|:---------------------------|:----------------------------------------------------|
-| `pnpm check` | Run Astro checks for errors |
-| `pnpm type-check` | Run TypeScript type checking |
-| `pnpm format` | Format code with Biome |
-| `pnpm lint` | Check and fix code with Biome linter |
-
-### Astro CLI
-| Command | Action |
-|:---------------------------|:----------------------------------------------------|
-| `pnpm astro ...` | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro --help` | Get help using the Astro CLI |
-
-## 📚 Obsidian Import Guide
-
-The `import-obsidian` script provides powerful features:
-
-### Features
-- ✅ **Automatic Frontmatter** - Adds complete metadata (title, date, tags, category, series)
-- ✅ **Wiki Link Conversion** - Converts `[[file]]` to web links `/posts/file/`
-- ✅ **Directory Structure Preservation** - Maintains your Obsidian folder hierarchy
-- ✅ **Automatic Image Copying** - Copies all image files (PNG, JPG, GIF, SVG, WebP, etc.)
-- ✅ **Code Block Language Mapping** - Auto-fixes unsupported languages
-- ✅ **Existing Frontmatter Support** - Preserves your existing frontmatter
-
-### Usage Examples
+### 基本用法
 
 ```bash
-# Basic import (uses vault name as series)
-pnpm import-obsidian ~/Documents/MyNotes
+# 导入 Obsidian 仓库
+pnpm import-obsidian /path/to/vault
 
-# Import with custom series name
-pnpm import-obsidian ~/Documents/MyNotes "My Learning Notes"
+# 使用自定义系列名称
+pnpm import-obsidian /path/to/vault "系列名称"
+```
 
-# Import with custom date, category, and tags
-pnpm import-obsidian ~/Documents/MyNotes "My Tutorial" \
+### 自定义配置
+
+支持自定义日期、分类、标签：
+
+```bash
+# 完全自定义（日期、分类、标签）
+pnpm import-obsidian /path/to/vault "系列名称" \
   --date="2025-01-15" \
-  --category="Technology" \
-  --tags="JavaScript,Coding,Tutorial"
+  --category="技术文档" \
+  --tags="JavaScript,React,前端"
 
-# Import specific folder
-pnpm import-obsidian ~/Documents/MyNotes/Folder "Series Name" \
-  --date="2024-12-01" \
-  --category="Documentation"
+# 只自定义日期
+pnpm import-obsidian /path/to/vault "系列名称" --date="2025-01-01"
+
+# 只自定义分类
+pnpm import-obsidian /path/to/vault "系列名称" --category="编程"
+
+# 只自定义标签
+pnpm import-obsidian /path/to/vault "系列名称" --tags="React,Vue,前端"
 ```
 
-### Wiki Link Conversion
+**参数说明：**
+- `--date="YYYY-MM-DD"` - 设置所有文档的发布日期
+- `--category="名称"` - 设置所有文档的分类
+- `--tags="tag1,tag2,tag3"` - 设置所有文档的标签（逗号分隔）
 
-| Obsidian Format | Converted To |
-|---------------|---------------|
-| `[[Document]]` | `[Document](/posts/document/)` |
-| `[[Document\|Display Text]]` | `[Display Text](/posts/document/)` |
+### 自动功能
 
-### Code Block Language Handling
+导入脚本会自动完成以下操作：
 
-Automatically maps unsupported languages:
+1. ✅ 添加完整的 frontmatter（标题、日期、标签、分类、系列）
+2. ✅ 将 Obsidian 的 Wiki 链接 `[[文件名]]` 转换为网页链接
+3. ✅ 保留原有的文件夹结构
+4. ✅ **自动复制所有图片文件**（PNG, JPG, GIF, SVG, WebP 等）
+5. ✅ 自动设置系列、标签、分类
+6. ✅ 保留原有 frontmatter（如有）
+7. ✅ 自动处理代码块语言（将不支持的语言映射为支持的）
 
-| Original | Mapped To |
-|----------|-------------|
-| Verilog | C (similar syntax) |
-| SystemVerilog | C |
-| VHDL | C |
-| Tcl | txt |
+### 图片文件处理
 
-**Note:** Only the language marker changes. Code content is preserved completely.
+脚本会自动复制所有图片文件到博客项目中，保持相对路径不变。
 
-## 🎯 Series Feature
+**支持的图片格式：**
+- `.png` - PNG 图片
+- `.jpg` / `.jpeg` - JPEG 图片
+- `.gif` - GIF 动画
+- `.svg` - SVG 矢量图
+- `.webp` - WebP 图片
+- `.bmp` - BMP 图片
+- `.ico` - 图标文件
 
-### Creating a Series
+**文件夹结构保留：**
 
-Add the `series` field to multiple posts:
-
-```yaml
----
-title: Part 1
-series: "My Tutorial"
-# ... other fields
----
+```
+Obsidian Vault/
+├── images/
+│   ├── photo1.png
+│   └── photo2.jpg
+└── notes/
+    └── article.md
 ```
 
-```yaml
----
-title: Part 2
-series: "My Tutorial"
-# ... other fields
----
+导入后：
+
+```
+src/content/posts/
+├── images/
+│   ├── photo1.png  # ✅ 自动复制
+│   └── photo2.jpg  # ✅ 自动复制
+└── notes/
+    └── article.md  # ✅ 保持结构
 ```
 
-### Series Display
+### Wiki 链接转换
 
-- **Homepage**: Shows as "My Tutorial · X articles" card (if merged)
-- **Series Page**: `/series/my-tutorial/` shows all posts sorted by date
-- **Article Cards**: Display series badge and link
-- **Metadata**: Shows series information in post details
+脚本会将 Obsidian 的 Wiki 链接格式转换为网页链接：
 
-### Configuration
+| Obsidian 格式 | 转换后 |
+|--------------|--------|
+| `[[文档]]` | `[文档](/posts/文档/)` |
+| `[[文档\|显示文本]]` | `[显示文本](/posts/文档/)` |
 
-Edit `src/constants/constants.ts`:
+### 代码块语言处理
 
-```typescript
-export const MERGE_SERIES_ON_HOME = true; // true: merge, false: show individually
-```
+脚本会自动处理代码块的语言标记，将不支持的语言映射为支持的替代语言：
 
-## 🐛 Troubleshooting
+**支持的语言：**
+- Web: javascript, typescript, html, css
+- 后端: python, java, go, ruby, php
+- 系统级: c, cpp, rust, swift, kotlin, scala
+- 脚本: bash, sh, powershell
+- 配置: json, xml, yaml, toml, sql
 
-### Build Errors
+**不支持的语言处理：**
+- `verilog` → `c`
+- `systemverilog` → `c`
+- `vhdl` → `c`
+- `tcl` → `txt`
+- 其他不支持的语言 → `txt`
+
+如果已导入文件，可运行以下命令手动修复：
+
 ```bash
-# Clean and reinstall
-rm -rf node_modules .astro dist
-pnpm install
-```
-
-### Node.js Version
-Required: Node.js >= 18.20.8
-
-```bash
-node --version
-```
-
-### Code Block Language Warnings
-```bash
-# Auto-fix all unsupported languages
 pnpm fix-code-languages
 ```
 
-### Type Checking
+### 使用示例
+
 ```bash
-pnpm type-check
+# 导入 "JavaScript 学习笔记" 仓库
+pnpm import-obsidian ~/Documents/Obsidian/JavaScript学习笔记
+
+# 结果：
+# - 所有 md 文件复制到 src/content/posts/
+# - 系列名称: JavaScript学习笔记
+# - 分类: JavaScript学习笔记
+# - 标签: ["JavaScript学习笔记"]
+
+# 导入并自定义配置
+pnpm import-obsidian ~/Notes "技术文档" \
+  --date="2025-01-15" \
+  --category="技术" \
+  --tags="JavaScript,React,前端"
 ```
 
-## 📖 Documentation
+## 📚 系列/合集功能
 
-- **[Quick Reference](docs/QUICK_REFERENCE.md)** - Command cheat sheet and common tasks
-- **[Obsidian Import Guide](docs/OBSIDIAN_IMPORT.md)** - Detailed import documentation
-- **[Custom Import Config](docs/CUSTOM_IMPORT_CONFIG.md)** - How to customize date, category, and tags
-- **[Import with Images Guide](docs/IMPORT_WITH_IMAGES.md)** - How to import notes with images
-- **[Filename Number Sorting](docs/FILENAME_NUMBER_SORT.md)** - Sort posts by filename sequence number
-- **[Code Language Fix](docs/CODE_LANGUAGE_FIX.md)** - Language mapping solutions
-- **[AGENTS.md](AGENTS.md)** - Developer guide for AI coding assistants
-- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
+支持将文章归入系列，在主页以卡片形式展示。
 
-## ✏️ Customization
+### 创建系列
 
-### Site Configuration
+在文章 frontmatter 中添加：
 
-Edit `src/config.ts`:
+```yaml
+series: "系列名称"
+```
+
+同一系列的文章：
+- 在主页合并为一个卡片
+- 点击卡片查看系列所有文章
+- **按文件名序号排序**（如 `1. 标题.md`）
+- 若文件名无序号，则按日期排序
+
+### 文件名序号排序
+
+支持从文件名中自动提取序号并排序：
+
+| 文件名 | 序号 | 排序位置 |
+|--------|------|---------|
+| `1. 标题.md` | 1 | 第 1 位 |
+| `2. 标题.md` | 2 | 第 2 位 |
+| `10. 标题.md` | 10 | 第 10 位 |
+| `A. 标题.md` | A | 数字序号后 |
+| `B. 标题.md` | B | 数字序号后 |
+| `标题.md` | 无 | 最后 |
+
+### 配置
+
+在 `src/constants/constants.ts` 中：
+
+```typescript
+export const MERGE_SERIES_ON_HOME = true;  // 是否在主页合并系列
+```
+
+## 🔧 常用配置
+
+### 修改网站信息
+
+编辑 `src/config.ts`:
 
 ```typescript
 export const siteConfig = {
-  title: "Your Blog",
-  subtitle: "Your subtitle",
-  lang: "en",
+  title: "网站标题",
+  subtitle: "副标题",
+  lang: "zh_CN",
   themeColor: { hue: 250, fixed: false },
-  banner: {
-    enable: true,
-    src: "assets/images/banner.png",
-    position: "top",
-  },
-  // ... more options
-};
+  // ...
+}
 ```
 
-### Navigation
+### 添加导航链接
 
 ```typescript
 export const navBarConfig = {
@@ -332,42 +296,75 @@ export const navBarConfig = {
     LinkPreset.Home,
     LinkPreset.Archive,
     LinkPreset.About,
-    { name: "GitHub", url: "https://github.com/username", external: true },
+    { name: "GitHub", url: "https://github.com/xxx", external: true },
   ],
-};
+}
 ```
 
-### Profile
+## 📂 文件结构
 
-```typescript
-export const profileConfig = {
-  avatar: "/favicon/avatar.png",
-  name: "Your Name",
-  bio: "Short bio",
-  links: [
-    { name: "Twitter", icon: "mdi:twitter", url: "https://twitter.com/..." },
-    { name: "GitHub", icon: "mdi:github", url: "https://github.com/..." },
-  ],
-};
+```
+src/
+├── content/
+│   └── posts/           # 所有文章
+│       ├── 系列1/
+│       │   ├── 文章1.md
+│       │   └── 文章2.md
+│       └── 独立文章.md
+├── components/          # 组件
+├── config.ts            # 全局配置
+├── layouts/             # 布局
+└── pages/               # 页面
 ```
 
-## ✏️ Contributing
+## 🔍 故障排查
 
-Check out the [Contributing Guide](CONTRIBUTING.md) for details on how to contribute to this project.
+### 构建错误
 
-## 📄 License
+```bash
+# 清理缓存
+rm -rf node_modules .astro dist
+pnpm install
+```
 
-This project is licensed under the MIT License.
+### Node.js 版本
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari?ref=badge_large&issueType=license)
+要求：Node.js >= 18.20.8
 
-## 🙏 Acknowledgments
+```bash
+node --version
+```
 
-Built with:
-- [Astro](https://astro.build) - The web framework for content-driven websites
-- [Svelte](https://svelte.dev/) - Cybernetically enhanced web apps
-- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
-- [Expressive Code](https://expressive-code.com/) - Beautiful code blocks for documentation sites
-- [Pagefind](https://pagefind.app/) - Static site search
+### 类型错误
 
-Original template by [saicaca](https://github.com/saicaca).
+```bash
+pnpm type-check
+```
+
+### 格式问题
+
+```bash
+pnpm format
+pnpm lint
+```
+
+## 🚀 快速开始
+
+```bash
+# 1. 导入 Obsidian 笔记
+pnpm import-obsidian ~/MyNotes
+
+# 2. 启动开发服务器
+pnpm dev
+
+# 3. 访问 http://localhost:4321
+
+# 4. 调整内容后构建
+pnpm build
+
+# 5. 上传 dist/ 到服务器
+```
+
+## 📖 更多文档
+
+- [AGENTS.md](../AGENTS.md) - 开发者指南
