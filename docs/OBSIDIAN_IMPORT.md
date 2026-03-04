@@ -7,9 +7,10 @@
 1. ✅ 添加完整的 frontmatter（标题、日期、标签、分类、系列）
 2. ✅ 将 Obsidian 的 Wiki 链接 `[[文件名]]` 转换为网页链接
 3. ✅ 保留原有的文件夹结构
-4. ✅ 自动设置系列、标签、分类为仓库名称
-5. ✅ 保留原有 frontmatter（如有）
-6. ✅ 自动处理代码块语言（将不支持的语言映射为支持的）
+4. ✅ **自动复制所有图片文件**（png, jpg, gif, svg 等）
+5. ✅ 自动设置系列、标签、分类为仓库名称
+6. ✅ 保留原有 frontmatter（如有）
+7. ✅ 自动处理代码块语言（将不支持的语言映射为支持的）
 
 ## 使用方法
 
@@ -31,6 +32,64 @@ pnpm import-obsidian /path/to/your/vault "我的笔记系列"
 
 - Obsidian 仓库路径必须存在
 - 脚本会跳过 `.obsidian`、`.git`、`node_modules`、`.trash` 等目录
+
+## 图片文件处理
+
+脚本会自动复制所有图片文件到博客项目中：
+
+### 支持的图片格式
+- `.png` - PNG 图片
+- `.jpg` / `.jpeg` - JPEG 图片
+- `.gif` - GIF 动画
+- `.svg` - SVG 矢量图
+- `.webp` - WebP 图片
+- `.bmp` - BMP 图片
+- `.ico` - 图标文件
+
+### 图片路径处理
+在 Obsidian 中，图片通常这样引用：
+
+```markdown
+![图片描述](./image.png)
+![图片描述](image.jpg)
+```
+
+导入后，图片会被复制到 `src/content/posts/` 对应的目录下，保持相对路径不变：
+
+```markdown
+![图片描述](./image.png)  # ✅ 正常工作
+```
+
+### 文件夹结构保留
+
+Obsidian 的文件夹结构会完整保留到博客中：
+
+```
+Obsidian Vault/
+├── images/
+│   ├── photo1.png
+│   └── photo2.jpg
+└── notes/
+    └── article.md
+```
+
+导入后：
+
+```
+src/content/posts/
+├── images/
+│   ├── photo1.png  # ✅ 自动复制
+│   └── photo2.jpg  # ✅ 自动复制
+└── notes/
+    └── article.md  # ✅ 保持结构
+```
+
+### 注意事项
+
+1. **自动复制**：无需手动操作，所有图片自动复制
+2. **相对路径**：Obsidian 中的相对路径引用会自动工作
+3. **跳过目录**：`.obsidian` 等系统目录中的图片会被跳过
+4. **覆盖警告**：如果目标文件已存在会被覆盖
 
 ## Wiki 链接转换
 
@@ -156,10 +215,13 @@ pnpm import-obsidian ~/Notes/Python教程
    ```
 
 2. **检查导入的文件**
-   ```bash
-   # 查看导入的文件
-   ls -la src/content/posts/
-   ```
+    ```bash
+    # 查看导入的文件
+    ls -la src/content/posts/
+
+    # 查看图片文件
+    find src/content/posts/ -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" -o -name "*.svg" \)
+    ```
 
 3. **调整 frontmatter**（可选）
    - 打开文件手动修改 title、description 等
@@ -188,6 +250,32 @@ A: 确保：
 2. 文件名匹配（不含扩展名）
 3. 没有特殊字符导致匹配失败
 
+### Q: 图片显示不正常？
+
+A: 检查以下几点：
+1. **确认图片已导入**：运行 `find src/content/posts/ -type f -name "*.png"` 查找图片文件
+2. **相对路径**：Obsidian 中的相对路径应该保持不变
+3. **绝对路径**：如果使用了绝对路径，需要手动调整为相对路径
+
+### Q: 如何为文章添加封面图？
+
+A: 在文章的 frontmatter 中添加 `image` 字段：
+
+```yaml
+---
+title: 文章标题
+image: ./cover.jpg  # 相对于文章所在目录
+---
+```
+
+如果封面图在公共资源中，使用绝对路径：
+
+```yaml
+---
+image: /images/cover.jpg  # 相对于 public 目录
+---
+```
+
 ### Q: 如何重新导入？
 
 A: 直接重新运行导入命令会覆盖现有文件。建议先备份或删除旧文件。
@@ -211,4 +299,6 @@ const skipDirs = [".obsidian", ".git", "node_modules", ".trash", "私人笔记"]
 - 使用 Node.js 原生 fs 模块处理文件
 - 支持嵌套文件夹结构
 - 自动处理文件名中的特殊字符
+- **自动识别并复制图片文件**（支持常见格式）
+- 保持图片和文档的相对路径关系
 - 使用正则表达式转换 Wiki 链接

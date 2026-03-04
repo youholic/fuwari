@@ -183,6 +183,7 @@ The `import-obsidian` script provides powerful features:
 - ✅ **Automatic Frontmatter** - Adds complete metadata (title, date, tags, category, series)
 - ✅ **Wiki Link Conversion** - Converts `[[file]]` to web links `/posts/file/`
 - ✅ **Directory Structure Preservation** - Maintains your Obsidian folder hierarchy
+- ✅ **Automatic Image Copying** - Copies all image files (PNG, JPG, GIF, SVG, WebP, etc.)
 - ✅ **Code Block Language Mapping** - Auto-fixes unsupported languages
 - ✅ **Existing Frontmatter Support** - Preserves your existing frontmatter
 
@@ -287,6 +288,7 @@ pnpm type-check
 
 - **[Quick Reference](docs/QUICK_REFERENCE.md)** - Command cheat sheet and common tasks
 - **[Obsidian Import Guide](docs/OBSIDIAN_IMPORT.md)** - Detailed import documentation
+- **[Import with Images Guide](docs/IMPORT_WITH_IMAGES.md)** - How to import notes with images
 - **[Filename Number Sorting](docs/FILENAME_NUMBER_SORT.md)** - Sort posts by filename sequence number
 - **[Code Language Fix](docs/CODE_LANGUAGE_FIX.md)** - Language mapping solutions
 - **[AGENTS.md](AGENTS.md)** - Developer guide for AI coding assistants

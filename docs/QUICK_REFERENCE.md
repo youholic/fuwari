@@ -50,6 +50,7 @@ pnpm import-obsidian ~/Documents/Obsidian/笔记仓库名
 **自动完成：**
 - ✅ 添加 frontmatter
 - ✅ 转换 Wiki 链接
+- ✅ **复制所有图片文件**（PNG, JPG, GIF, SVG 等）  # 新增
 - ✅ 处理代码块语言
 - ✅ 设置系列/分类/标签
 
@@ -63,6 +64,7 @@ pnpm dev
 - 链接是否正常跳转
 - 代码块是否有语法高亮
 - 文章是否在主页显示
+- **图片是否正常显示**  # 新增
 
 ### 3. 调整内容（可选）
 
@@ -203,6 +205,7 @@ pnpm lint
 ## 文档
 
 - [Obsidian 导入指南](./OBSIDIAN_IMPORT.md)
+- [带图片导入指南](./IMPORT_WITH_IMAGES.md)
 - [代码语言修复](./CODE_LANGUAGE_FIX.md)
 - [按文件名序号排序](./FILENAME_NUMBER_SORT.md)
 - [AGENTS.md](../AGENTS.md) - 开发者指南

@@ -217,6 +217,48 @@ function getAllMarkdownFiles(dir, baseDir = dir) {
 	return files
 }
 
+function getAllFiles(dir, baseDir = dir) {
+	const files = new Map()
+
+	function traverse(currentDir) {
+		const entries = fs.readdirSync(currentDir, { withFileTypes: true })
+
+		for (const entry of entries) {
+			const fullPath = path.join(currentDir, entry.name)
+
+			if (entry.isDirectory()) {
+				const skipDirs = [".obsidian", ".git", "node_modules", ".trash"]
+				if (!skipDirs.includes(entry.name)) {
+					traverse(fullPath)
+				}
+			} else {
+				const relativePath = path.relative(baseDir, fullPath)
+				files.set(relativePath, fullPath)
+			}
+		}
+	}
+
+	traverse(dir)
+	return files
+}
+
+const IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".bmp", ".ico"]
+
+function isImageFile(filename) {
+	return IMAGE_EXTENSIONS.some(ext => filename.toLowerCase().endsWith(ext))
+}
+
+function copyFile(sourcePath, relativePath) {
+	const targetPath = path.join(TARGET_DIR, relativePath)
+	const dirPath = path.dirname(targetPath)
+
+	if (!fs.existsSync(dirPath)) {
+		fs.mkdirSync(dirPath, { recursive: true })
+	}
+
+	fs.copyFileSync(sourcePath, targetPath)
+}
+
 console.log(`\n📦 Importing Obsidian vault: ${OBSIDIAN_VAULT}`)
 console.log(`📚 Series name: ${SERIES_NAME}`)
 console.log(`🏷️  Category: ${CATEGORY}`)
@@ -225,6 +267,26 @@ console.log(`🔖 Tags: ${TAGS.join(", ")}\n`)
 console.log("🔍 Scanning for Markdown files...")
 const allFiles = getAllMarkdownFiles(OBSIDIAN_VAULT)
 console.log(`   Found ${allFiles.size} Markdown files\n`)
+
+console.log("🖼️ Scanning for image files...")
+const allFilesMap = getAllFiles(OBSIDIAN_VAULT)
+let imageCount = 0
+
+for (const [relativePath, sourcePath] of allFilesMap.entries()) {
+	if (isImageFile(relativePath)) {
+		const targetPath = path.join(TARGET_DIR, relativePath)
+		const dirPath = path.dirname(targetPath)
+
+		if (!fs.existsSync(dirPath)) {
+			fs.mkdirSync(dirPath, { recursive: true })
+		}
+
+		fs.copyFileSync(sourcePath, targetPath)
+		imageCount++
+	}
+}
+
+console.log(`   Found and copied ${imageCount} image files\n`)
 
 console.log("📝 Processing files...")
 let processedCount = 0
@@ -251,7 +313,10 @@ function processDirectory(dir, relativePath = "") {
 
 processDirectory(OBSIDIAN_VAULT)
 
-console.log(`\n✅ Import complete! Processed ${processedCount} files.`)
+console.log(`\n✅ Import complete!`)
+console.log(`   - Markdown files processed: ${processedCount}`)
+console.log(`   - Image files copied: ${imageCount}`)
+console.log(`   - Total files: ${processedCount + imageCount}`)
 console.log(`\n💡 Tips:`)
 console.log(`   - Run \`pnpm dev\` to preview your blog`)
 console.log(`   - Check imported files in ${TARGET_DIR}`)
