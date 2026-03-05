@@ -4,8 +4,7 @@ published: 2025-10-09
 description: "容器部署与迁移"
 image: ""
 tags: ["Docker"]
-category: Guide
-series: 
+category: Guides
 draft: false
 lang: zh_CN
 ---
